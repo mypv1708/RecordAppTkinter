@@ -4,11 +4,11 @@ import wave
 
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
-RECORD_SECONDS = 3
+RECORD_SECONDS = 4
 CHUNK = 1024
-RATE = 24414 
+RATE = 44100 
 
-WAVE_OUTPUT_FILENAME = "Record/output3.wav"
+WAVE_OUTPUT_FILENAME = "output1.wav"
 
 p = pyaudio.PyAudio()
 

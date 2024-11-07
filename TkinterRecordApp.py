@@ -6,16 +6,14 @@ import os
 import subprocess
 import json
 
-# Cấu hình ghi âm
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 CHUNK = 1024
-RATE = 22050
+RATE = 24414
 WAVE_OUTPUT_FILENAME = ""
 
 is_recording = False
 
-# Hàm ghi âm
 def record_audio():
     global is_recording
     p = pyaudio.PyAudio()
@@ -86,7 +84,6 @@ def update_content_label():
             content_label.config(text="Nội dung không có sẵn cho cảm xúc này.")
     else:
         content_label.config(text="") 
-
 
 root = tk.Tk()
 root.title("Voice Recorder")
