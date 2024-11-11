@@ -9,7 +9,7 @@ import json
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 CHUNK = 1024
-RATE = 24414
+RATE = 16000
 WAVE_OUTPUT_FILENAME = ""
 
 is_recording = False
@@ -78,16 +78,20 @@ def update_content_label():
     
     if selected_question >= 0:
         if selected_emotion in content_data:
-            content = content_data[selected_emotion][selected_question]
-            content_label.config(text=content)
+            # Kiểm tra xem chỉ số câu hỏi có hợp lệ không
+            if selected_question < len(content_data[selected_emotion]):
+                content = content_data[selected_emotion][selected_question]
+                content_label.config(text='Nội dung: ' + content)
+            else:
+                content_label.config(text="Nội dung không có sẵn cho câu hỏi này.")
         else:
             content_label.config(text="Nội dung không có sẵn cho cảm xúc này.")
     else:
-        content_label.config(text="") 
+        content_label.config(text="")
 
 root = tk.Tk()
 root.title("Voice Recorder")
-root.geometry("900x600")
+root.geometry("900x740")
 
 title_label = tk.Label(root, text="Ứng Dụng Ghi Âm", font=("Arial", 18, "bold"))
 title_label.pack(pady=10)
@@ -103,13 +107,13 @@ status_frame.pack(pady=10)
 status_label = tk.Label(status_frame, text="", font=("Arial", 12))
 status_label.pack(side=tk.LEFT, padx=5)
 
-emotion_var = tk.StringVar(value="Bình Thường")
+emotion_var = tk.StringVar(value="Thân Thiện")
 emotion_frame = tk.Frame(status_frame)
 emotion_frame.pack(side=tk.LEFT, padx=5)
 
 content_data = load_content_data()
 
-emotions = ["Bình Thường", "Vui Vẻ", "Buồn Bã", "Tức Giận", "Xẻo Sắc"]
+emotions = ["Thân Thiện", "Vui Vẻ", "Mệt Mỏi", "Cáu Giận", "Lạnh Lùng"]
 for emotion in emotions:
     tk.Radiobutton(emotion_frame, text=emotion, variable=emotion_var, value=emotion).pack(anchor=tk.W)
 
@@ -117,7 +121,7 @@ question_var = tk.IntVar(value=-1)
 question_frame = tk.Frame(status_frame)
 question_frame.pack(side=tk.LEFT, padx=5)
 
-for i in range(6):
+for i in range(12):
     tk.Radiobutton(question_frame, text=f"Câu {i + 1}", variable=question_var, value=i).pack(anchor=tk.W)
 
 name_label = tk.Label(root, text="Nhập tên người ghi âm:", font=("Arial", 12))
